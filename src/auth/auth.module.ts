@@ -10,17 +10,22 @@ import { Role } from './entities/role.entity';
 import { UserController } from './controllers/user.controller';
 import { CaslModule } from '../casl/casl.module';
 import { UserService } from './services/user.service';
+import { PermissionController } from './controllers/permission.controller';
+import { PermissionService } from './services/permission.service';
+import { RoleService } from './services/role.service';
+import { Permission } from './entities/permission.entity';
+import { RoleController } from './controllers/role.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Role]),
+    TypeOrmModule.forFeature([User, Role, Permission]),
     PassportModule,
     CaslModule,
     JwtModule.register({
       signOptions: {expiresIn: '300s'}
     })
   ],
-  providers: [AuthService, JwtStrategy, UserService],
-  controllers: [AuthController, UserController]
+  providers: [AuthService, JwtStrategy, UserService, PermissionService, RoleService],
+  controllers: [AuthController, UserController, PermissionController, RoleController],
 })
 export class AuthModule {}
