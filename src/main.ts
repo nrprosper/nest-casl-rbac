@@ -9,6 +9,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('NESTJS CASL RBAC')
+    .addServer('http://localhost:3000', 'Local Server')
     .setDescription(`
         Mini Blog API with Role-Based Access Control (RBAC).
       

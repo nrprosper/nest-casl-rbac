@@ -8,6 +8,7 @@ import { CaslModule } from './casl/casl.module';
 import { ConfigModule } from '@nestjs/config';
 import DataSource from '../db/data-source';
 import { DatabaseModule } from './database/database.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { DatabaseModule } from './database/database.module';
     BlogModule,
     CaslModule,
     DatabaseModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
