@@ -1,0 +1,54 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      timezone: "Africa/Kigali"
+    groups:
+      nestjs-dependencies:
+        patterns:
+          - "@nestjs/*"
+      casl-dependencies:
+        patterns:
+          - "@casl/*"
+      typeorm-dependencies:
+        patterns:
+          - "typeorm"
+          - "@nestjs/typeorm"
+          - "pg"
+      passport-dependencies:
+        patterns:
+          - "passport*"
+      testing-dependencies:
+        patterns:
+          - "jest"
+          - "ts-jest"
+          - "@types/jest"
+          - "@nestjs/testing"
+          - "supertest"
+          - "@types/supertest"
+      eslint-dependencies:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "prettier"
+          - "eslint-config-prettier"
+          - "eslint-plugin-prettier"
+      typescript-dependencies:
+        patterns:
+          - "typescript"
+          - "ts-*"
+          - "@types/*"
+      security-dependencies:
+        patterns:
+          - "bcrypt"
+          - "passport-jwt"
+          - "@nestjs/jwt"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "dependabot"
+    commit-message:
+      prefix: "build"
+      include: "scope"
