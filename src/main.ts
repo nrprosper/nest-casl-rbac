@@ -16,11 +16,16 @@ async function bootstrap() {
         This API combines NestJS, Passport, and CASL to provide secure and flexible access control.
     `)
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: '1',
+  });
+
+  app.setGlobalPrefix(apiPrefix, {
+    exclude: ['/', 'api/v1'],
   });
 
   const document = SwaggerModule.createDocument(app, config);
@@ -40,10 +45,6 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-
-  app.setGlobalPrefix(apiPrefix, {
-    exclude: ['/', 'api/v1'],
-  });
 
   await app.listen(process.env.APP_PORT ?? 3000);
 }

@@ -19,10 +19,11 @@ import { CurrentUser } from '../decorators/current-user.decorator';
 import { User } from '../entities/user.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { JwtAuthGuard } from '../guards/jwt.guard';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Users Controller')
 @Controller('users')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, AbilitiesGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}

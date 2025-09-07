@@ -9,7 +9,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RoleService } from '../services/role.service';
 import { JwtAuthGuard } from '../guards/jwt.guard';
 import { AbilitiesGuard } from '../guards/abilities.guard';
@@ -21,6 +21,7 @@ import { PaginationDto } from '../../common/dto/pagination.dto';
 
 @ApiTags('Roles Controller')
 @Controller('roles')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, AbilitiesGuard)
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}

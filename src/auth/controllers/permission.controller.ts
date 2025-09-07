@@ -8,7 +8,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PermissionService } from '../services/permission.service';
 import { CreatePermissionDto } from '../dto/create-permission.dto';
 import { UpdatePermissionDto } from '../dto/update-permission.dto';
@@ -19,6 +19,7 @@ import { Action, Subject } from '../entities/permission.entity';
 
 @ApiTags('Permissions Controller')
 @Controller('permissions')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, AbilitiesGuard)
 export class PermissionController {
   constructor(

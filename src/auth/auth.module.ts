@@ -15,14 +15,19 @@ import { PermissionService } from './services/permission.service';
 import { RoleService } from './services/role.service';
 import { Permission } from './entities/permission.entity';
 import { RoleController } from './controllers/role.controller';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Role, Permission]),
     PassportModule,
     CaslModule,
-    JwtModule.register({
-      signOptions: {expiresIn: '300s'}
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>("JWT_SECRET"),
+        signOptions: { expiresIn: '24h' },
+      })
     })
   ],
   providers: [AuthService, JwtStrategy, UserService, PermissionService, RoleService],
