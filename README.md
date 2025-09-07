@@ -23,13 +23,96 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Mini Blog API with Role-Based Access Control (RBAC)
+
+This API combines NestJS, Passport, and CASL to provide secure and flexible access control.
+
+## Environment Configuration
+
+Create a `.env` file based on the `.env.example`:
+
+```bash
+APP_PORT=3000
+
+JWT_SECRET=your_jwt_secret_key_here
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=your_db_username
+DATABASE_PASSWORD=your_db_password
+DATABASE_NAME=your_db_name
+```
 
 ## Project setup
 
 ```bash
 $ pnpm install
 ```
+
+## Database Setup
+
+### Running Migrations
+
+```bash
+# Generate a new migration
+$ pnpm run migration:generate db/migrations/MigrationName
+
+# Run pending migrations
+$ pnpm run migration:run
+
+# Revert the last migration
+$ pnpm run migration:revert
+```
+
+## Seeding Data
+
+The project includes seed data for permissions, roles, and users:
+
+```bash
+# Seed the database with initial data
+$ pnpm run seed
+```
+
+### Default Seeded Users
+
+After running the seed command, the following users will be available:
+
+| Email | Password | Role | Description |
+|-------|----------|------|-------------|
+| admin@example.com | admin123 | super_admin | Full system access |
+| moderator@example.com | moderator123 | moderator | Content management |
+| author@example.com | author123 | author | Content creation |
+| user@example.com | user123 | user | Basic access |
+
+### Roles and Permissions
+
+The application implements a Role-Based Access Control (RBAC) system with the following roles and their permissions:
+
+#### Super Admin (`super_admin`)
+- Has full access to all system resources (super user)
+- Can manage all users, roles, permissions, and blogs
+
+#### Admin (`admin`)
+- User Management: Create, read, update, and delete users
+- Role Management: Create, read, update, and delete roles
+- Permission Management: Read permissions
+- Blog Management: Full access to all blogs
+
+#### Moderator (`moderator`)
+- User Management: Read users
+- Role Management: Read roles
+- Blog Management: Full access to all blogs (create, read, update, delete any blog)
+
+#### Author (`author`)
+- Blog Management: 
+  - Create new blogs
+  - Read blogs
+  - Update own blogs
+  - Delete own blogs
+
+#### User (`user`)
+- Blog Management: Read blogs
+
+Each role is assigned specific permissions that define what actions they can perform on different subjects (users, roles, permissions, blogs). The permissions are based on CRUD operations (Create, Read, Update, Delete) and are enforced through the CASL authorization library.
 
 ## Compile and run the project
 
@@ -57,42 +140,3 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
