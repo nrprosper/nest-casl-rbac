@@ -25,8 +25,8 @@
     "migration:revert": "typeorm-ts-node-esm -d ./dist/db/data-source.js migration:revert"
   },
   "dependencies": {
-    "@casl/ability": "^6.7.3",
-    "@casl/mongoose": "^8.0.3",
+    "@casl/ability": "^6.7.5",
+    "@casl/mongoose": "^8.0.4",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
